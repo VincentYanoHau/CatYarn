@@ -1,0 +1,17 @@
+How to play Cat Yarn?
+
+Game Keybinds
+Enter - Start Game
+Back Space - Exit Game
+
+Yarn
+Arrow Up - Move up
+Arrow Down - Move down
+Arrow Left - Move left
+Arrow Right - Move right
+
+Cat
+W - Move up
+S - Move down
+A - Move left
+D - Move right
