@@ -1,0 +1,465 @@
+from graphics import *
+import winsound
+
+win = GraphWin("Cat Yarn?", 800,500)
+win.setCoords(400, 250, -400, -250)
+
+def title_screen():
+    ptscreen = Point(0,0)
+    screen = Image((ptscreen),"meownu.png")
+    screen.draw(win)
+    while True:
+        keyVal = win.checkKey()
+        if keyVal == 'Return':
+            winsound.PlaySound("cat yarn.wav", 0)
+            break
+    return
+
+def yarn_win():
+    ptyarn = Point(0,0)
+    yarn_win = Image((ptyarn),"yarnwin.png")
+    yarn_win.draw(win)
+
+def cat_win():
+    ptcat = Point(0,0)
+    cat_win = Image((ptcat),"catwin.png")
+    cat_win.draw(win)
+
+def game_map():
+    border = Rectangle(Point(-400,-250), Point(400,250))
+    border.setOutline("#a54f3d")
+    border.setFill("#a54f3d")
+    border.draw(win)
+    
+    ptcarpet = Point(0,0)
+    carpet = Image((ptcarpet),"carpet.png")
+    carpet.draw(win)
+            
+def Stage_1(px1,py1,px2,py2):
+    game_map()
+
+    ptdoor = Point(0,0)
+    door = Image((ptdoor),"door.png")
+    door.draw(win)
+
+    ptyarn = Point(-300,100)
+    yarn = Image((ptyarn),"yarn.png")
+    yarn.draw(win)
+
+    ptcat = Point(100,0)
+    cat = Image((ptcat),"cat.png")
+    cat.draw(win)
+    
+    Xcat = 100
+    Ycat = 0
+    Xyarn = -300
+    Yyarn = 100
+      
+    while True:
+        keyVal = win.checkKey()
+        if keyVal == 'Right':
+            if Xyarn > -370:
+                yarn.move(-px1,py1)
+                Xyarn = Xyarn - 10
+        elif keyVal == 'Left':
+            if Xyarn < 370:
+                yarn.move(px1,py1)
+                Xyarn = Xyarn + 10
+        elif keyVal == 'Down':
+             if Yyarn < 220:
+                yarn.move(px2,py2)
+                Yyarn = Yyarn + 10
+        elif keyVal == 'Up':
+            if Yyarn > -220:
+                yarn.move(px2,-py2)
+                Yyarn = Yyarn - 10
+
+        elif keyVal == 'd' or keyVal == 'D':
+            if Xcat > -370:
+                cat.move(-px1,py1)
+                Xcat = Xcat - 10
+        elif keyVal == 'a' or keyVal == 'A':
+            if Xcat < 370:
+                cat.move(px1,py1)
+                Xcat = Xcat + 10
+        elif keyVal == 's' or keyVal == 'S':
+            if Ycat < 220:
+                cat.move(px2,py2)
+                Ycat = Ycat + 10
+        elif keyVal == 'w' or keyVal == 'W':
+            if Ycat > -220:
+                cat.move(px2,-py2)
+                Ycat = Ycat - 10
+
+        if (Xyarn <= 20 and Xyarn >= -20) and (Yyarn <= 20 and Yyarn >= -20):         
+            Stage_2(10,0,0,10)
+
+        if Xcat == Xyarn and Ycat == Yyarn:
+            cat_win()
+            if keyVal == 'Return':
+                Stage_1(10,0,0,10)
+        
+            
+        if keyVal == 'BackSpace':
+            win.close()
+            exit()
+            break
+
+def Stage_2(px1,py1,px2,py2):
+    game_map()
+
+    ptdoor = Point(50,0)
+    door = Image((ptdoor),"door.png")
+    door.draw(win)
+
+    fdoor = Point(-50,0)
+    fdoor = Image((fdoor),"door.png")
+    fdoor.draw(win)
+
+    ptyarn = Point(0,150)
+    yarn = Image((ptyarn),"yarn.png")
+    yarn.draw(win)
+
+    ptcat = Point(0,50)
+    cat = Image((ptcat),"cat.png")
+    cat.draw(win)
+    
+    Xcat = 0
+    Ycat = 50
+    Xyarn = 0
+    Yyarn = 150
+      
+    while True:
+        keyVal = win.checkKey()
+        if keyVal == 'Right':
+            if Xyarn > -370:
+                yarn.move(-px1,py1)
+                Xyarn = Xyarn - 10
+        elif keyVal == 'Left':
+            if Xyarn < 370:
+                yarn.move(px1,py1)
+                Xyarn = Xyarn + 10
+        elif keyVal == 'Down':
+             if Yyarn < 220:
+                yarn.move(px2,py2)
+                Yyarn = Yyarn + 10
+        elif keyVal == 'Up':
+            if Yyarn > -220:
+                yarn.move(px2,-py2)
+                Yyarn = Yyarn - 10
+
+        elif keyVal == 'd' or keyVal == 'D':
+            if Xcat > -370:
+                cat.move(-px1,py1)
+                Xcat = Xcat - 10
+        elif keyVal == 'a' or keyVal == 'A':
+            if Xcat < 370:
+                cat.move(px1,py1)
+                Xcat = Xcat + 10
+        elif keyVal == 's' or keyVal == 'S':
+            if Ycat < 220:
+                cat.move(px2,py2)
+                Ycat = Ycat + 10
+        elif keyVal == 'w' or keyVal == 'W':
+            if Ycat > -220:
+                cat.move(px2,-py2)
+                Ycat = Ycat - 10
+
+        if (Xyarn <= 70 and Xyarn >= 30) and (Yyarn <= 20 and Yyarn >= -20):
+            Stage_3(10,0,0,10)
+
+        elif (Xyarn <= -30 and Xyarn >= -70) and (Yyarn <= 20 and Yyarn >= -20):
+            Stage_2(10,0,0,10)
+                
+
+        if Xcat == Xyarn and Ycat == Yyarn:
+            cat_win()
+            if keyVal == 'Return':
+                Stage_1(10,0,0,10)
+        
+            
+        if keyVal == 'BackSpace':
+            win.close()
+            exit()
+            break
+
+
+def Stage_3(px1,py1,px2,py2):
+    game_map()
+
+    ptdoor = Point(170,-175)
+    door = Image((ptdoor),"door.png")
+    door.draw(win)
+
+    fdoor1 = Point(170,175)
+    fdoor1 = Image((fdoor1),"door.png")
+    fdoor1.draw(win)
+
+    fdoor2 = Point(340,0)
+    fdoor2 = Image((fdoor2),"door.png")
+    fdoor2.draw(win)
+
+    ptyarn = Point(-250,0)
+    yarn = Image((ptyarn),"yarn.png")
+    yarn.draw(win)
+
+    ptcat = Point(100,0)
+    cat = Image((ptcat),"cat.png")
+    cat.draw(win)
+    
+    Xcat = 100
+    Ycat = 0
+    Xyarn = -250
+    Yyarn = 0
+      
+    while True:
+        keyVal = win.checkKey()
+        if keyVal == 'Right':
+            if Xyarn > -370:
+                yarn.move(-px1,py1)
+                Xyarn = Xyarn - 10
+        elif keyVal == 'Left':
+            if Xyarn < 370:
+                yarn.move(px1,py1)
+                Xyarn = Xyarn + 10
+        elif keyVal == 'Down':
+             if Yyarn < 220:
+                yarn.move(px2,py2)
+                Yyarn = Yyarn + 10
+        elif keyVal == 'Up':
+            if Yyarn > -220:
+                yarn.move(px2,-py2)
+                Yyarn = Yyarn - 10
+
+        elif keyVal == 'd' or keyVal == 'D':
+            if Xcat > -370:
+                cat.move(-px1,py1)
+                Xcat = Xcat - 10
+        elif keyVal == 'a' or keyVal == 'A':
+            if Xcat < 370:
+                cat.move(px1,py1)
+                Xcat = Xcat + 10
+        elif keyVal == 's' or keyVal == 'S':
+            if Ycat < 220:
+                cat.move(px2,py2)
+                Ycat = Ycat + 10
+        elif keyVal == 'w' or keyVal == 'W':
+            if Ycat > -220:
+                cat.move(px2,-py2)
+                Ycat = Ycat - 10
+
+        if (Xyarn <= 180 and Xyarn >= 140) and (Yyarn <= 200 and Yyarn >= 160):
+                Stage_4(10,0,0,10)
+
+        elif (Xyarn <= 180 and Xyarn >= 140) and (Yyarn <= -160 and Yyarn >= -200):
+            Stage_3(10,0,0,10)
+            
+        elif (Xyarn <= 370 and Xyarn >= 330) and (Yyarn <= 20 and Yyarn >= -20):
+            Stage_3(10,0,0,10)
+
+        if Xcat == Xyarn and Ycat == Yyarn:
+            cat_win()
+            if keyVal == 'Return':
+                Stage_1(10,0,0,10)
+            
+        if keyVal == 'BackSpace':
+            win.close()
+            exit()
+            break
+
+def Stage_4(px1,py1,px2,py2):
+    game_map()
+
+    ptdoor = Point(320,-180)
+    door = Image((ptdoor),"door.png")
+    door.draw(win)
+
+    fdoor1 = Point(320,180)
+    fdoor1 = Image((fdoor1),"door.png")
+    fdoor1.draw(win)
+
+    fdoor2 = Point(-320,-180)
+    fdoor2 = Image((fdoor2),"door.png")
+    fdoor2.draw(win)
+
+    fdoor3 = Point(-320,180)
+    fdoor3 = Image((fdoor3),"door.png")
+    fdoor3.draw(win)
+
+    ptyarn = Point(-250,0)
+    yarn = Image((ptyarn),"yarn.png")
+    yarn.draw(win)
+
+    ptcat = Point(0,0)
+    cat = Image((ptcat),"cat.png")
+    cat.draw(win)
+    
+    Xcat = 0
+    Ycat = 0
+    Xyarn = -250
+    Yyarn = 0
+      
+    while True:
+        keyVal = win.checkKey()
+        if keyVal == 'Right':
+            if Xyarn > -370:
+                yarn.move(-px1,py1)
+                Xyarn = Xyarn - 10
+        elif keyVal == 'Left':
+            if Xyarn < 370:
+                yarn.move(px1,py1)
+                Xyarn = Xyarn + 10
+        elif keyVal == 'Down':
+             if Yyarn < 220:
+                yarn.move(px2,py2)
+                Yyarn = Yyarn + 10
+        elif keyVal == 'Up':
+            if Yyarn > -220:
+                yarn.move(px2,-py2)
+                Yyarn = Yyarn - 10
+
+        elif keyVal == 'd' or keyVal == 'D':
+            if Xcat > -370:
+                cat.move(-px1,py1)
+                Xcat = Xcat - 10
+        elif keyVal == 'a' or keyVal == 'A':
+            if Xcat < 370:
+                cat.move(px1,py1)
+                Xcat = Xcat + 10
+        elif keyVal == 's' or keyVal == 'S':
+            if Ycat < 220:
+                cat.move(px2,py2)
+                Ycat = Ycat + 10
+        elif keyVal == 'w' or keyVal == 'W':
+            if Ycat > -220:
+                cat.move(px2,-py2)
+                Ycat = Ycat - 10
+
+        if (Xyarn <= 340 and Xyarn >= 300) and (Yyarn <= -160 and Yyarn >= -200):
+                Stage_5(10,0,0,10)
+
+        elif (Xyarn <= -300 and Xyarn >= -340) and (Yyarn <= 200 and Yyarn >= 160):
+            Stage_4(10,0,0,10)
+            
+        elif (Xyarn <= 340 and Xyarn >= 300) and (Yyarn <= 200 and Yyarn >= 160):
+            Stage_4(10,0,0,10)
+
+        elif (Xyarn <= -300 and Xyarn >= -340) and (Yyarn <= -160 and Yyarn >= -200):
+            Stage_4(10,0,0,10)
+
+        if Xcat == Xyarn and Ycat == Yyarn:
+            cat_win()
+            if keyVal == 'Return':
+                Stage_1(10,0,0,10)
+            
+        if keyVal == 'BackSpace':
+            win.close()
+            exit()
+            break
+
+def Stage_5(px1,py1,px2,py2):
+    game_map()
+
+    ptdoor = Point(320,-180)
+    door = Image((ptdoor),"door.png")
+    door.draw(win)
+
+    fdoor1 = Point(320,180)
+    fdoor1 = Image((fdoor1),"door.png")
+    fdoor1.draw(win)
+
+    fdoor2 = Point(-320,-180)
+    fdoor2 = Image((fdoor2),"door.png")
+    fdoor2.draw(win)
+
+    fdoor3 = Point(-320,180)
+    fdoor3 = Image((fdoor3),"door.png")
+    fdoor3.draw(win)
+
+    fdoor4 = Point(0,0)
+    fdoor4 = Image((fdoor4),"door.png")
+    fdoor4.draw(win)
+
+    ptyarn = Point(-250,0)
+    yarn = Image((ptyarn),"yarn.png")
+    yarn.draw(win)
+
+    ptcat = Point(0,50)
+    cat = Image((ptcat),"cat.png")
+    cat.draw(win)
+    
+    Xcat = 0
+    Ycat = 50
+    Xyarn = -250
+    Yyarn = 0
+      
+    while True:
+        keyVal = win.checkKey()
+        if keyVal == 'Right':
+            if Xyarn > -370:
+                yarn.move(-px1,py1)
+                Xyarn = Xyarn - 10
+        elif keyVal == 'Left':
+            if Xyarn < 370:
+                yarn.move(px1,py1)
+                Xyarn = Xyarn + 10
+        elif keyVal == 'Down':
+             if Yyarn < 220:
+                yarn.move(px2,py2)
+                Yyarn = Yyarn + 10
+        elif keyVal == 'Up':
+            if Yyarn > -220:
+                yarn.move(px2,-py2)
+                Yyarn = Yyarn - 10
+
+        elif keyVal == 'd' or keyVal == 'D':
+            if Xcat > -370:
+                cat.move(-px1,py1)
+                Xcat = Xcat - 10
+        elif keyVal == 'a' or keyVal == 'A':
+            if Xcat < 370:
+                cat.move(px1,py1)
+                Xcat = Xcat + 10
+        elif keyVal == 's' or keyVal == 'S':
+            if Ycat < 220:
+                cat.move(px2,py2)
+                Ycat = Ycat + 10
+        elif keyVal == 'w' or keyVal == 'W':
+            if Ycat > -220:
+                cat.move(px2,-py2)
+                Ycat = Ycat - 10
+
+        if (Xyarn <= 340 and Xyarn >= 300) and (Yyarn <= 200 and Yyarn >= 160):
+            yarn_win()
+            if keyVal == 'Return':
+                Stage_1(10,0,0,10)
+
+        elif (Xyarn <= -300 and Xyarn >= -340) and (Yyarn <= 200 and Yyarn >= 160):
+            Stage_5(10,0,0,10)
+            
+        elif (Xyarn <= 340 and Xyarn >= 300) and (Yyarn <= -160 and Yyarn >= -200):
+            Stage_5(10,0,0,10)
+
+        elif (Xyarn <= -300 and Xyarn >= -340) and (Yyarn <= -160 and Yyarn >= -200):
+            Stage_5(10,0,0,10)
+
+        elif (Xyarn <= -300 and Xyarn >= -340) and (Yyarn <= -160 and Yyarn >= -200):
+            Stage_5(10,0,0,10)
+            
+        elif (Xyarn <= 20 and Xyarn >= -20) and (Yyarn <= 20 and Yyarn >= -20):         
+            Stage_5(10,0,0,10)
+
+        if Xcat == Xyarn and Ycat == Yyarn:
+            cat_win()
+            if keyVal == 'Return':
+                Stage_1(10,0,0,10)
+            
+        if keyVal == 'BackSpace':
+            win.close()
+            exit()
+            break
+
+
+title_screen()
+winsound.PlaySound("kazooteiner.wav", winsound.SND_LOOP + winsound.SND_ASYNC)
+Stage_1(10,0,0,10)
